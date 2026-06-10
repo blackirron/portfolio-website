@@ -23,28 +23,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
-        
+
       - name: Build project
         run: npm run build
         env:
-          NITRO_PRESET: github-pages
-          
+          NITRO_PRESET: static
+
+      - name: List build output
+        run: |
+          echo "=== root ===" && ls -la
+          echo "=== .output ===" && ls -la .output 2>/dev/null || echo "no .output"
+          echo "=== dist ===" && ls -la dist 2>/dev/null || echo "no dist"
+          echo "=== .output/public ===" && ls -la .output/public 2>/dev/null || echo "no .output/public"
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './.output/public'
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
