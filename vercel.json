@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && echo '=== OUTPUT ===' && find . -name 'index.html' 2>/dev/null | grep -v node_modules",
   "outputDirectory": ".output/public",
   "framework": null
 }
